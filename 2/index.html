@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Procvičování matematiky - Malá násobilka</title>
+  <link rel="stylesheet" href="../shared/style.css">
+</head>
+<body>
+  <div class="container">
+    <div class="top-bar">
+      <div class="top-bar-left">
+        <a href="../" class="nav-home-link" data-i18n="allLessons">← Všechny lekce</a>
+      </div>
+      <div class="top-bar-right">
+        <div class="lang-switcher">
+          <button type="button" class="lang-btn active" data-lang="cs" title="Čeština">🇨🇿 CZ</button>
+          <button type="button" class="lang-btn" data-lang="en" title="English">🇬🇧 EN</button>
+        </div>
+      </div>
+    </div>
+
+    <h1 data-i18n="appTitle">Procvičování matematiky</h1>
+
+    <!-- SETUP SCREEN -->
+    <div id="setup-screen">
+      <div class="lesson-info" data-i18n="lesson2Info">Lekce: malá násobilka (např. 3 · 5, 2 · 0, 8 · 2)</div>
+      <p data-i18n="setupPrompt">Nastavte si parametry cvičení:</p>
+
+      <div class="form-group">
+        <label for="total-count" data-i18n="totalCountLabel">Počet příkladů:</label>
+        <input type="number" id="total-count" min="1" value="10">
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="max-val-1" data-i18n="maxVal1Label">Maximální hodnota 1. činitele:</label>
+          <input type="number" id="max-val-1" min="0" value="10">
+        </div>
+        <div class="form-group">
+          <label for="max-val-2" data-i18n="maxVal2Label">Maximální hodnota 2. činitele:</label>
+          <input type="number" id="max-val-2" min="0" value="10">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="secret-word" data-i18n="secretWordLabel">Tajenka (volitelné):</label>
+        <input type="text" id="secret-word" data-i18n-placeholder="secretWordPlaceholder" placeholder="např. Dinosaurus, Poklad...">
+      </div>
+
+      <div class="setup-btn-row">
+        <button type="button" id="start-btn" data-i18n="startBtn">Spustit</button>
+        <button type="button" id="gen-link-btn" data-i18n="genLinkBtn">Vygenerovat odkaz</button>
+      </div>
+
+      <div id="link-container" class="link-container hidden">
+        <p class="link-label" data-i18n="linkLabel">Sdílejte tento odkaz se studentem:</p>
+        <div class="link-box">
+          <input type="text" id="share-link-input" readonly>
+          <button type="button" id="copy-link-btn" data-i18n="copyBtn">Kopírovat</button>
+        </div>
+      </div>
+
+      <div id="setup-error" class="error"></div>
+    </div>
+
+    <!-- PRACTICE SCREEN -->
+    <div id="practice-screen" class="hidden">
+      <div class="progress">
+        <span id="progress-text">0 / 10</span>
+      </div>
+      <div id="problem-display" class="problem"></div>
+      <div class="hint-container">
+        <button type="button" id="hint-btn" class="hint-btn" data-i18n="hintBtn">Nápověda</button>
+      </div>
+      <div id="hint-box" class="hint-box hidden">
+        <div id="mult-tables-container" class="mult-tables-container"></div>
+      </div>
+      <div class="input-area">
+        <input type="text" id="answer-input" data-i18n-placeholder="answerPlaceholder" placeholder="Tvůj výsledek" autofocus autocomplete="off" inputmode="numeric">
+      </div>
+      <div id="numpad">
+        <button type="button" class="np" data-value="1">1</button>
+        <button type="button" class="np" data-value="2">2</button>
+        <button type="button" class="np" data-value="3">3</button>
+
+        <button type="button" class="np" data-value="4">4</button>
+        <button type="button" class="np" data-value="5">5</button>
+        <button type="button" class="np" data-value="6">6</button>
+
+        <button type="button" class="np" data-value="7">7</button>
+        <button type="button" class="np" data-value="8">8</button>
+        <button type="button" class="np" data-value="9">9</button>
+
+        <button type="button" class="np" data-action="minus">−</button>
+        <button type="button" class="np" data-value="0">0</button>
+        <button type="button" class="np" data-action="back">←</button>
+
+        <button type="button" class="np" data-action="clear">C</button>
+        <button type="button" id="next-btn" class="np numpad-next" data-i18n="nextBtn">Další</button>
+      </div>
+      <div id="feedback" class="feedback"></div>
+    </div>
+
+    <!-- CONGRATULATIONS SCREEN -->
+    <div id="congrats-screen" class="hidden">
+      <h2 data-i18n="congratsTitle">🎉 Gratulujeme! 🎉</h2>
+      <p data-i18n="congratsMsg">Úspěšně jsi dokončil všechny příklady!</p>
+      <div id="secret-reveal" class="secret-reveal hidden">
+        <p class="secret-heading" data-i18n="secretRevealHeading">Právě jsi odhalil tajenku:</p>
+        <div id="secret-word-display" class="secret-word-display"></div>
+      </div>
+      <p class="congrats-instruction" data-i18n="congratsInstruction">Nyní můžeš stránku zavřít, nebo kliknout na tlačítko níže a začít znovu.</p>
+      <button id="restart-btn" data-i18n="restartBtn">Začít znovu</button>
+    </div>
+  </div>
+
+  <script src="../shared/i18n.js"></script>
+  <script src="../shared/common.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

@@ -23,11 +23,19 @@ A lightweight, distraction-free web application designed to help children and st
    - **Secret word challenge:** parents/teachers can set an encrypted link with an optional secret word that is revealed only when all problems are completed correctly.
    - Czech and English interface.
 
-*More lessons (multiplication, division, fractions, equations) are planned for future updates!*
+2. **[Lesson 2: Multiplication](./2/)** (`./2/`)
+   - Practice multiplication of small numbers (e.g. `3 · 5`, `2 · 0`, `8 · 2`).
+   - Configurable maximum values for each factor with order randomization.
+   - Secret word challenge and encrypted shareable link.
+   - On-screen telephone numpad & physical keyboard support.
+
+*More lessons (division, fractions, equations) are planned for future updates!*
 
 ### 🌐 Live Demo
 The application is hosted via GitHub Pages:
-**https://me2d13.github.io/math/1/**
+- **Portal:** **https://me2d13.github.io/math/**
+- **Lesson 1:** **https://me2d13.github.io/math/1/**
+- **Lesson 2:** **https://me2d13.github.io/math/2/**
 
 ---
 
@@ -38,7 +46,7 @@ Jednoduchá a přehledná webová aplikace pro procvičování základních mate
 
 ### 🎯 Cílová skupina
 - **Žáci a studenti:** Čisté a přívětivé prostředí pro procvičování matematiky vlastním tempem bez rušivých prvků.
-- **Rodiče:** Možnost snadno nastavit parametry příkladů, zadat tajenku (odměnu) a poslat dítěti přímý odkaz na kvíz.
+- **Rodiče:** Možnost snadno nastavit parametry příkladů, zadat tajenku (odměnu) a poslat studentovi přímý odkaz na kvíz.
 - **Učitelé a lektoři:** Rychlé vytvoření procvičovacích sad pro výuku nebo domácí přípravu.
 
 ### 📚 Dostupné lekce
@@ -47,11 +55,19 @@ Jednoduchá a přehledná webová aplikace pro procvičování základních mate
    - Nastavitelný rozsah hodnot, počet členů v příkladu i celkový počet příkladů.
    - Vizuální nápověda pomocí interaktivní číselné osy s barevnými šipkami.
    - Virtuální klávesnice v telefonním rozložení i plná podpora běžné klávesnice.
-   - **Kvíz s tajenkou:** rodič či učitel může zadat tajenku a vygenerovat šifrovaný odkaz, který žákovi odhalí tajenku až po úspěšném dokončení všech příkladů.
+   - **Kvíz s tajenkou:** rodič či učitel může zadat tajenku a vygenerovat šifrovaný odkaz, který studentovi odhalí tajenku až po úspěšném dokončení všech příkladů.
    - Možnost přepínání mezi češtinou (výchozí) a angličtinou.
 
-*Další lekce (násobení, dělení, zlomky, rovnice) budou následovat v dalších verzích!*
+2. **[Lekce 2: Malá násobilka](./2/)** (`./2/`)
+   - Procvičování násobení malých čísel (např. `3 · 5`, `2 · 0`, `8 · 2`).
+   - Nastavitelné maximální hodnoty pro jednotlivé činitele s náhodným prohazováním pořadí.
+   - Kvíz s tajenkou a generování šifrovaného odkazu.
+   - Telefonní klávesnice i běžná klávesnice.
+
+*Další lekce (dělení, zlomky, rovnice) budou následovat v dalších verzích!*
 
 ### 🌐 Spuštění online
 Aplikace je dostupná přes GitHub Pages:
-**https://me2d13.github.io/math/1/**
+- **Portál:** **https://me2d13.github.io/math/**
+- **Lekce 1:** **https://me2d13.github.io/math/1/**
+- **Lekce 2:** **https://me2d13.github.io/math/2/**

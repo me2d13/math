@@ -4,14 +4,19 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Procvičování matematiky</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="../shared/style.css">
 </head>
 <body>
   <div class="container">
     <div class="top-bar">
-      <div class="lang-switcher">
-        <button type="button" class="lang-btn active" data-lang="cs" title="Čeština">🇨🇿 CZ</button>
-        <button type="button" class="lang-btn" data-lang="en" title="English">🇬🇧 EN</button>
+      <div class="top-bar-left">
+        <a href="../" class="nav-home-link" data-i18n="allLessons">← Všechny lekce</a>
+      </div>
+      <div class="top-bar-right">
+        <div class="lang-switcher">
+          <button type="button" class="lang-btn active" data-lang="cs" title="Čeština">🇨🇿 CZ</button>
+          <button type="button" class="lang-btn" data-lang="en" title="English">🇬🇧 EN</button>
+        </div>
       </div>
     </div>
 
@@ -19,7 +24,7 @@
 
     <!-- SETUP SCREEN -->
     <div id="setup-screen">
-      <div class="lesson-info" data-i18n="lessonInfo">Lekce: sčítání a odčítání celých čísel (např. 3+4, -5+1-10)</div>
+      <div class="lesson-info" data-i18n="lesson1Info">Lekce: sčítání a odčítání celých čísel (např. 3+4, -5+1-10)</div>
       <p data-i18n="setupPrompt">Nastavte si parametry cvičení:</p>
       <div class="form-group">
         <label for="total-count" data-i18n="totalCountLabel">Počet příkladů:</label>
@@ -112,7 +117,7 @@
     </div>
   </div>
 
-  <script src="i18n.js"></script>
+  <script src="../shared/i18n.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
