@@ -24,6 +24,7 @@ Displays the lesson topic (*"Lesson: adding and subtracting numbers (e.g. 3+4, -
 | **Max number of terms** | Largest count of terms (default 3) |
 | **Secret word** | Optional secret word to reveal upon completion (e.g. "Dinosaur") |
 
+- **Task sample preview**: A compact single-line preview showing a sample problem generated from the current criteria (e.g. `3 + 4 = ?`). Automatically updates as values/term counts change, with a small refresh icon button to roll another sample.
 - **Start**: begins the session immediately.
 - **Generate Link**: symmetrically encrypts all criteria (including the selected language and secret word) into a shareable URL with a one-click copy button. When opened, the quiz directly starts using those criteria and in that specific language.
 
@@ -98,3 +99,4 @@ On mobile phone browsers, the native system software keyboard is suppressed for 
 10. Optional Secret Word with encrypted shareable URL links for parents/teachers and secret reveal upon completion
 11. Czech (default) and English localization with dedicated resource file (`i18n.js`) and top-bar language switcher (🇨🇿 / 🇬🇧)
 12. Mobile keyboard management: suppresses native virtual keyboard exclusively on the answer input on mobile devices so it does not cover the custom keypad, while preserving standard keyboard input for quiz configuration fields.
+13. Live task sample preview on setup screen with automatic updates on criteria change and a one-click refresh button.

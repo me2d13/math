@@ -27,6 +27,8 @@
   const shareLinkInput = document.getElementById("share-link-input");
   const copyLinkBtn = document.getElementById("copy-link-btn");
   const setupError = document.getElementById("setup-error");
+  const sampleTaskExpr = document.getElementById("sample-task-expr");
+  const sampleRefreshBtn = document.getElementById("sample-refresh-btn");
 
   const problemDisplay = document.getElementById("problem-display");
   const hintBtn = document.getElementById("hint-btn");
@@ -157,6 +159,21 @@
     const value = term1 * term2;
     const exprStr = term1 + " · " + term2;
     return { exprStr, value, term1, term2 };
+  }
+
+  // ---- sample task preview ----
+  function updateSampleTask() {
+    if (!sampleTaskExpr) return;
+    const max1 = parseInt(maxVal1Input.value, 10);
+    const max2 = parseInt(maxVal2Input.value, 10);
+
+    if (isNaN(max1) || max1 < 0 || isNaN(max2) || max2 < 0) {
+      sampleTaskExpr.textContent = "—";
+      return;
+    }
+
+    const prob = generateProblem(max1, max2);
+    sampleTaskExpr.textContent = prob.exprStr + " = ?";
   }
 
   // ---- screen navigation ----
@@ -294,6 +311,14 @@
   setupKeyboardInput(answerInput, checkAnswer, false);
   configureAnswerInput(answerInput);
 
+  // Sample task input listeners (only inputs impacting the task)
+  [maxVal1Input, maxVal2Input].forEach(function (input) {
+    input.addEventListener("input", updateSampleTask);
+  });
+  if (sampleRefreshBtn) {
+    sampleRefreshBtn.addEventListener("click", updateSampleTask);
+  }
+
   // ---- URL parameter handling on start ----
   function checkUrlParams() {
     try {
@@ -317,6 +342,7 @@
       if (data.s !== undefined) {
         secretWordInput.value = data.s;
       }
+      updateSampleTask();
 
       startQuiz(data.c, data.m1, data.m2, data.s || "");
     } catch (e) {
@@ -344,6 +370,7 @@
       el.textContent = t("tableTitle", { n: base });
     });
   });
+  updateSampleTask();
   checkUrlParams();
 
 })();

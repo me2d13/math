@@ -34,6 +34,8 @@
   const shareLinkInput = document.getElementById("share-link-input");
   const copyLinkBtn = document.getElementById("copy-link-btn");
   const setupError = document.getElementById("setup-error");
+  const sampleTaskExpr = document.getElementById("sample-task-expr");
+  const sampleRefreshBtn = document.getElementById("sample-refresh-btn");
 
   const problemDisplay = document.getElementById("problem-display");
   const hintBtn = document.getElementById("hint-btn");
@@ -103,6 +105,13 @@
       }
     });
 
+    document.querySelectorAll("[data-i18n-title]").forEach(function (el) {
+      const key = el.getAttribute("data-i18n-title");
+      if (key) {
+        el.title = t(key);
+      }
+    });
+
     document.querySelectorAll(".lang-btn").forEach(function (btn) {
       btn.classList.toggle("active", btn.getAttribute("data-lang") === lang);
     });
@@ -166,6 +175,25 @@
     }
 
     return { exprStr, value, steps };
+  }
+
+  // ---- sample task preview ----
+  function updateSampleTask() {
+    if (!sampleTaskExpr) return;
+    const minVal = parseInt(minValInput.value, 10);
+    const maxVal = parseInt(maxValInput.value, 10);
+    const minTerms = parseInt(minTermsInput.value, 10);
+    const maxTerms = parseInt(maxTermsInput.value, 10);
+
+    if (isNaN(minVal) || isNaN(maxVal) || minVal >= maxVal ||
+        isNaN(minTerms) || minTerms < 2 ||
+        isNaN(maxTerms) || minTerms > maxTerms) {
+      sampleTaskExpr.textContent = "—";
+      return;
+    }
+
+    const prob = generateProblem(minVal, maxVal, minTerms, maxTerms);
+    sampleTaskExpr.textContent = prob.exprStr + " = ?";
   }
 
   // ---- hint & number line rendering ----
@@ -588,6 +616,7 @@
       if (data.s !== undefined) {
         secretWordInput.value = data.s;
       }
+      updateSampleTask();
 
       startQuiz(data.c, data.min, data.max, data.minT, data.maxT, data.s || "");
     } catch (e) {
@@ -595,10 +624,19 @@
     }
   }
 
+  // Sample task input listeners (only inputs impacting the task)
+  [minValInput, maxValInput, minTermsInput, maxTermsInput].forEach(function (input) {
+    input.addEventListener("input", updateSampleTask);
+  });
+  if (sampleRefreshBtn) {
+    sampleRefreshBtn.addEventListener("click", updateSampleTask);
+  }
+
   if (window.MathAppCommon && typeof window.MathAppCommon.configureAnswerInput === "function") {
     window.MathAppCommon.configureAnswerInput(answerInput);
   }
 
   setLanguage(currentLang);
+  updateSampleTask();
   checkUrlParams();
 })();

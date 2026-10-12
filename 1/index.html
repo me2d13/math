@@ -48,6 +48,15 @@
           <input type="number" id="max-terms" min="2" value="3">
         </div>
       </div>
+      <div class="sample-task-row">
+        <div class="sample-task-left">
+          <span class="sample-task-label" data-i18n="sampleTaskLabel">Ukázka příkladu:</span>
+          <span class="sample-task-expr" id="sample-task-expr">—</span>
+        </div>
+        <button type="button" class="sample-refresh-btn" id="sample-refresh-btn" data-i18n-title="refreshSampleTitle" title="Vygenerovat jinou ukázku">
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-7.068 2H.534a.25.25 0 0 1-.192-.41l1.966-2.36a.25.25 0 0 1 .384 0l1.966 2.36a.25.25 0 0 1-.192.41z"/><path fill-rule="evenodd" d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 4.9 4c1.552 0 2.94-.707 3.857-1.818a.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z"/></svg>
+        </button>
+      </div>
       <div class="form-group">
         <label for="secret-word" data-i18n="secretWordLabel">Tajenka (volitelné):</label>
         <input type="text" id="secret-word" data-i18n-placeholder="secretWordPlaceholder" placeholder="např. Dinosaurus, Poklad...">

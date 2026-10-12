@@ -23,6 +23,7 @@ The user configures the multiplication practice session:
 | **Max value of 2nd factor** (`Max. hodnota 2. činitele`) | Maximum value for the second term (can be 0) | `10` |
 | **Secret word** (`Tajenka`) | Optional secret word to reveal upon completion | *empty* |
 
+- **Task sample preview**: Compact single-line preview of a sample multiplication problem generated from current limits (e.g. `3 · 5 = ?`), dynamically refreshed on factor limit changes, with a refresh icon button to roll another sample.
 - **Start**: begins the session immediately.
 - **Generate Link**: symmetrically encrypts all criteria (including the selected language and secret word) into a shareable URL with a one-click copy button. When opened, the quiz directly starts using those criteria.
 
