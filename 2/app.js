@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  const { t, randInt, setupNumpad, setupKeyboardInput, setupCopyButton, generateShareUrl, decryptParams, initLanguage, getCurrentLang } = window.MathAppCommon;
+  const { t, randInt, setupNumpad, setupKeyboardInput, setupCopyButton, generateShareUrl, decryptParams, initLanguage, getCurrentLang, configureAnswerInput, focusAnswer } = window.MathAppCommon;
 
   // ---- state ----
   let totalProblems = 0;
@@ -180,7 +180,7 @@
 
     initHintForProblem(prob.term1, prob.term2);
 
-    answerInput.focus();
+    focusAnswer(answerInput);
   }
 
   function checkAnswer() {
@@ -201,7 +201,7 @@
       feedback.textContent = t("feedbackWrong");
       feedback.className = "feedback wrong";
       answerInput.value = "";
-      answerInput.focus();
+      focusAnswer(answerInput);
     }
   }
 
@@ -292,6 +292,7 @@
   setupCopyButton(copyLinkBtn, shareLinkInput);
   setupNumpad(numpad, answerInput, checkAnswer);
   setupKeyboardInput(answerInput, checkAnswer, false);
+  configureAnswerInput(answerInput);
 
   // ---- URL parameter handling on start ----
   function checkUrlParams() {
@@ -330,7 +331,7 @@
 
   hintBtn.addEventListener("click", function () {
     revealNextHint();
-    answerInput.focus();
+    focusAnswer(answerInput);
   });
 
   // Initialize language and URL handling

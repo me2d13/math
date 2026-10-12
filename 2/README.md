@@ -44,7 +44,8 @@ The user configures the multiplication practice session:
   - On the first hint click, one randomly chosen result is revealed as a clue.
   - On each subsequent click ("More hint" / "Další nápověda"), an additional clue is revealed.
   - **Sibling protection rule**: The target line itself and its adjacent sibling rows (e.g. `2 · 5`, `4 · 5` in table 5, and `3 · 4`, `3 · 6` in table 3) are never revealed by hints, encouraging the student to calculate the final step themselves.
-  - Clicking hint buttons preserves cursor focus directly inside the answer box for seamless typing.
+  - Clicking hint buttons preserves cursor focus directly inside the answer box for seamless typing on desktop.
+  - **Mobile phone optimization**: The system onscreen keyboard is suppressed for the answer input (`inputmode="none"`, `virtualkeyboardpolicy="manual"`, and touch-aware focus management) so it does not obstruct the on-screen keypad. Setup configuration inputs (e.g. secret word, factor limits) maintain standard browser keyboard behavior.
 
 ### 3. Congratulations screen
 

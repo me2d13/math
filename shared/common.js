@@ -108,6 +108,37 @@
     setLanguage(currentLang, onLangChange);
   }
 
+  // ---- mobile detection & virtual keyboard management ----
+  function isMobileDevice() {
+    const ua = navigator.userAgent || "";
+    const isMobileUA = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(ua);
+    const isTouchDevice = ("ontouchstart" in window) || (navigator.maxTouchPoints > 0);
+    const isCoarse = window.matchMedia && window.matchMedia("(pointer: coarse)").matches;
+    return isMobileUA || (isTouchDevice && isCoarse);
+  }
+
+  function configureAnswerInput(inputEl) {
+    if (!inputEl) return;
+    if (isMobileDevice()) {
+      inputEl.setAttribute("inputmode", "none");
+      inputEl.setAttribute("virtualkeyboardpolicy", "manual");
+      inputEl.removeAttribute("autofocus");
+      if (document.activeElement === inputEl) {
+        inputEl.blur();
+      }
+    } else {
+      inputEl.setAttribute("inputmode", "numeric");
+      inputEl.removeAttribute("virtualkeyboardpolicy");
+    }
+  }
+
+  function focusAnswer(inputEl) {
+    if (!inputEl) return;
+    if (!isMobileDevice()) {
+      inputEl.focus();
+    }
+  }
+
   // ---- numpad & keyboard input ----
   function setupNumpad(numpadEl, answerInputEl, onNext) {
     if (!numpadEl || !answerInputEl) return;
@@ -121,7 +152,7 @@
 
       if (action === "clear") {
         answerInputEl.value = "";
-        answerInputEl.focus();
+        focusAnswer(answerInputEl);
       } else if (action === "minus") {
         const cur = answerInputEl.value;
         if (cur.charAt(0) === "-") {
@@ -129,14 +160,14 @@
         } else {
           answerInputEl.value = "-" + cur;
         }
-        answerInputEl.focus();
+        focusAnswer(answerInputEl);
       } else if (action === "back") {
         const v = answerInputEl.value;
         answerInputEl.value = v.slice(0, -1);
-        answerInputEl.focus();
+        focusAnswer(answerInputEl);
       } else if (value !== null) {
         answerInputEl.value += value;
-        answerInputEl.focus();
+        focusAnswer(answerInputEl);
       } else if (btn.id === "next-btn" && typeof onNext === "function") {
         onNext();
       }
@@ -216,6 +247,9 @@
     setLanguage: setLanguage,
     initLanguage: initLanguage,
     getCurrentLang: function () { return currentLang; },
+    isMobileDevice: isMobileDevice,
+    configureAnswerInput: configureAnswerInput,
+    focusAnswer: focusAnswer,
     setupNumpad: setupNumpad,
     setupKeyboardInput: setupKeyboardInput,
     setupCopyButton: setupCopyButton,

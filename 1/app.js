@@ -50,6 +50,15 @@
   const secretWordDisplay = document.getElementById("secret-word-display");
   const restartBtn = document.getElementById("restart-btn");
 
+  // ---- mobile keyboard handling helper ----
+  function focusAnswer(el) {
+    if (window.MathAppCommon && typeof window.MathAppCommon.focusAnswer === "function") {
+      window.MathAppCommon.focusAnswer(el);
+    } else {
+      el.focus();
+    }
+  }
+
   // ---- localization ----
   let currentLang = "cs";
   try {
@@ -329,7 +338,7 @@
     feedback.textContent = "";
     feedback.className = "feedback";
     progressText.textContent = (currentProblem + 1) + " / " + totalProblems;
-    answerInput.focus();
+    focusAnswer(answerInput);
   }
 
   // ---- validation / navigation ----
@@ -355,7 +364,7 @@
       feedback.textContent = t("feedbackWrong");
       feedback.className = "feedback wrong";
       answerInput.value = "";
-      answerInput.focus();
+      focusAnswer(answerInput);
     }
   }
 
@@ -487,7 +496,7 @@
       hintBtn.disabled = true;
       renderNumberLine(true);
     }
-    answerInput.focus();
+    focusAnswer(answerInput);
   });
 
   nextBtn.addEventListener("click", function () {
@@ -535,7 +544,7 @@
 
     if (action === "clear") {
       answerInput.value = "";
-      answerInput.focus();
+      focusAnswer(answerInput);
     } else if (action === "minus") {
       var cur = answerInput.value;
       if (cur.charAt(0) === "-") {
@@ -543,14 +552,14 @@
       } else {
         answerInput.value = "-" + cur;
       }
-      answerInput.focus();
+      focusAnswer(answerInput);
     } else if (action === "back") {
       var v = answerInput.value;
       answerInput.value = v.slice(0, -1);
-      answerInput.focus();
+      focusAnswer(answerInput);
     } else if (value !== null) {
       answerInput.value += value;
-      answerInput.focus();
+      focusAnswer(answerInput);
     }
   });
 
@@ -584,6 +593,10 @@
     } catch (e) {
       console.error("Error reading URL parameters:", e);
     }
+  }
+
+  if (window.MathAppCommon && typeof window.MathAppCommon.configureAnswerInput === "function") {
+    window.MathAppCommon.configureAnswerInput(answerInput);
   }
 
   setLanguage(currentLang);

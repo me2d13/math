@@ -82,6 +82,8 @@ C   Next (spans 2 cols)
 | ← | Removes the last character (backspace) |
 | Next | Submits the answer and advances to the next problem |
 
+On mobile phone browsers, the native system software keyboard is suppressed for the answer edit box (`inputmode="none"` and `virtualkeyboardpolicy="manual"`), preventing it from covering the web page's keypad. Setup inputs (including the secret word) retain default browser keyboard behavior.
+
 ## Requirements / Feature list
 
 1. Configurable session parameters (count, value range, term count range)
@@ -95,3 +97,4 @@ C   Next (spans 2 cols)
 9. Visual Hint system with interactive number line and term-by-term vector arrows
 10. Optional Secret Word with encrypted shareable URL links for parents/teachers and secret reveal upon completion
 11. Czech (default) and English localization with dedicated resource file (`i18n.js`) and top-bar language switcher (🇨🇿 / 🇬🇧)
+12. Mobile keyboard management: suppresses native virtual keyboard exclusively on the answer input on mobile devices so it does not cover the custom keypad, while preserving standard keyboard input for quiz configuration fields.
