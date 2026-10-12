@@ -17,7 +17,7 @@ A lightweight, distraction-free web application designed to help children and st
 ### 📚 Available Lessons
 1. **[Lesson 1: Addition & Subtraction](./1/)** (`./1/`)
    - Drill addition and subtraction of integers around zero (e.g. `3 + 4`, `-5 + 1 - 10`).
-   - Configurable ranges, term counts, and example counts with live task sample preview.
+   - Configurable max term value, customizable result range (e.g. 0..20 for non-negative practice, or -10..10), term counts, and example counts with live task sample preview.
    - Interactive on-screen number line with stacked vector arrows for visual hints.
    - On-screen telephone-style numpad and full physical keyboard support (native mobile keyboard is automatically suppressed for the answer box to avoid covering the on-screen keypad).
    - **Secret word challenge:** parents/teachers can set an encrypted link with an optional secret word that is revealed only when all problems are completed correctly.
@@ -52,7 +52,7 @@ Jednoduchá a přehledná webová aplikace pro procvičování základních mate
 ### 📚 Dostupné lekce
 1. **[Lekce 1: Sčítání a odčítání](./1/)** (`./1/`)
    - Procvičování sčítání a odčítání celých čísel kolem nuly (např. `3 + 4`, `-5 + 1 - 10`).
-   - Nastavitelný rozsah hodnot, počet členů v příkladu i celkový počet příkladů s živou ukázkou příkladu.
+   - Nastavitelná maximální hodnota členu, rozsah výsledku (např. 0..20 pro procvičování bez záporných čísel či -10..10), počet členů i celkový počet příkladů s živou ukázkou příkladu.
    - Vizuální nápověda pomocí interaktivní číselné osy s barevnými šipkami.
    - Virtuální klávesnice v telefonním rozložení i plná podpora běžné klávesnice (systémová klávesnice na mobilech se pro pole výsledku automaticky potlačuje, aby nezakrývala tlačítka na obrazovce).
    - **Kvíz s tajenkou:** rodič či učitel může zadat tajenku a vygenerovat šifrovaný odkaz, který studentovi odhalí tajenku až po úspěšném dokončení všech příkladů.

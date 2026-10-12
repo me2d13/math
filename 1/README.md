@@ -18,8 +18,8 @@ Displays the lesson topic (*"Lesson: adding and subtracting numbers (e.g. 3+4, -
 | Parameter | Description |
 |---|---|
 | **Number of examples** | Total problems to generate (e.g. 10) |
-| **Minimum term value** | Lowest value a term can take (e.g. -10) |
-| **Maximum term value** | Highest value a term can take (e.g. 10) |
+| **Maximum term value** | Highest value a term can take (terms are always non-negative, ≥ 0, default 10) |
+| **Result range (from - to)** | Allowed range for all intermediate running totals and the final result (default -10 .. 10, e.g. 0 .. 20 for non-negative practice) |
 | **Min number of terms** | Smallest count of terms in an expression (must be ≥ 2, default 2) |
 | **Max number of terms** | Largest count of terms (default 3) |
 | **Secret word** | Optional secret word to reveal upon completion (e.g. "Dinosaur") |
@@ -51,17 +51,17 @@ After answering all N problems, a congratulatory message is shown.
 ## Problem generation
 
 - The number of terms is randomly chosen between min-terms and max-terms (inclusive).
-- Each term is a random integer between the configured min and max value.
-- The first term is a bare value (can be negative).
-- Every subsequent term is joined by a randomly chosen `+` or `-` operator.
-- The operator is flipped when the term is negative so the expression reads naturally (e.g. `-1 + -10` becomes `-1 - 10`).
+- Each term in the expression is a non-negative integer up to the configured maximum term value (`0 .. maxVal`).
+- Every intermediate running total as well as the final result strictly stays within the configured result range (`minRes .. maxRes`).
+- When the result range is set without negative numbers (e.g. `0 .. 20`), all intermediate steps and results remain strictly non-negative, making it perfect for students who have not yet learned negative numbers.
 
 **Examples:**
 
 | Config | Possible expressions |
 |---|---|
-| min=-10, max=10, terms=2 | `3 + 4`, `-2 + 9`, `3 + 0`, `-9 - 9`, `4 - 7` |
-| min=-10, max=10, terms=2-3 | `3 - 6`, `5 - 2 + 6`, `-1 - 10`, `7 + 2 - 4` |
+| max=10, result=0..20, terms=2 | `3 + 4` (7), `8 - 5` (3), `10 + 9` (19), `6 - 2` (4) |
+| max=10, result=0..20, terms=2-3 | `5 + 7 + 3` (15), `10 - 4 + 8` (14), `9 - 2 - 3` (4) |
+| max=10, result=-10..10, terms=2 | `3 + 4` (7), `-5 + 1` (-4), `2 - 8` (-6), `-3 - 4` (-7) |
 
 ## On-screen numpad
 

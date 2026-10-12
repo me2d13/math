@@ -8,8 +8,9 @@
   let currentAnswer = 0;
   let currentSteps = [];
   let currentSecretWord = "";
-  let sessionMinVal = -10;
   let sessionMaxVal = 10;
+  let sessionMinRes = -10;
+  let sessionMaxRes = 10;
   let sessionMinTerms = 2;
   let sessionMaxTerms = 3;
   let hintState = 0; // 0: hidden, 1: hint shown, 2: more hint shown
@@ -23,8 +24,9 @@
   const congratsScreen = document.getElementById("congrats-screen");
 
   const totalCountInput = document.getElementById("total-count");
-  const minValInput = document.getElementById("min-val");
   const maxValInput = document.getElementById("max-val");
+  const minResInput = document.getElementById("min-res");
+  const maxResInput = document.getElementById("max-res");
   const minTermsInput = document.getElementById("min-terms");
   const maxTermsInput = document.getElementById("max-terms");
   const secretWordInput = document.getElementById("secret-word");
@@ -137,41 +139,76 @@
     return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
   }
 
-  function generateProblem(minVal, maxVal, minTerms, maxTerms) {
+  function generateProblem(maxVal, minRes, maxRes, minTerms, maxTerms) {
     const numTerms = randInt(minTerms, maxTerms);
 
-    const terms = [];
-    for (let i = 0; i < numTerms; i++) {
-      terms.push(randInt(minVal, maxVal));
+    // First term selection (must be within [minRes, maxRes] and [-maxVal, maxVal])
+    const lowerFirst = Math.max(-maxVal, minRes);
+    const upperFirst = Math.min(maxVal, maxRes);
+
+    let value;
+    if (lowerFirst <= 0 && upperFirst >= 0 && (lowerFirst < 0 || upperFirst > 0)) {
+      if (Math.random() < 0.1) {
+        value = 0;
+      } else if (lowerFirst < 0 && upperFirst > 0) {
+        const candidates = [];
+        for (let v = lowerFirst; v <= upperFirst; v++) {
+          if (v !== 0) candidates.push(v);
+        }
+        value = candidates[randInt(0, candidates.length - 1)];
+      } else if (upperFirst > 0) {
+        value = randInt(1, upperFirst);
+      } else {
+        value = randInt(lowerFirst, -1);
+      }
+    } else {
+      value = randInt(lowerFirst, upperFirst);
     }
 
-    // Build expression string, evaluate value, and track terms with transitions
-    let exprStr = String(terms[0]);
-    let value = terms[0];
+    let exprStr = String(value);
     const steps = [
-      { text: String(terms[0]), delta: terms[0], from: 0, to: terms[0] }
+      { text: String(value), delta: value, from: 0, to: value }
     ];
 
-    for (let i = 1; i < terms.length; i++) {
-      const t = terms[i];
-      let op, signVal;
-      if (t >= 0) {
+    for (let i = 1; i < numTerms; i++) {
+      const canAdd = value < maxRes;
+      const canSub = value > minRes;
+
+      let op;
+      if (canAdd && canSub) {
         op = Math.random() < 0.5 ? "+" : "-";
-        signVal = t;
+      } else if (canAdd) {
+        op = "+";
       } else {
-        op = Math.random() < 0.5 ? "-" : "+";
-        signVal = -t;
+        op = "-";
       }
-      exprStr += " " + op + " " + signVal;
-      const prevVal = value;
-      const delta = (op === "+" ? signVal : -signVal);
-      value += delta;
-      steps.push({
-        text: op + " " + signVal,
-        delta: delta,
-        from: prevVal,
-        to: value
-      });
+
+      let termVal;
+      if (op === "+") {
+        const maxAdd = Math.min(maxVal, maxRes - value);
+        termVal = (maxAdd > 1 && Math.random() < 0.05) ? 0 : randInt(1, maxAdd);
+        const prevVal = value;
+        value += termVal;
+        exprStr += " + " + termVal;
+        steps.push({
+          text: "+ " + termVal,
+          delta: termVal,
+          from: prevVal,
+          to: value
+        });
+      } else {
+        const maxSub = Math.min(maxVal, value - minRes);
+        termVal = (maxSub > 1 && Math.random() < 0.05) ? 0 : randInt(1, maxSub);
+        const prevVal = value;
+        value -= termVal;
+        exprStr += " - " + termVal;
+        steps.push({
+          text: "- " + termVal,
+          delta: -termVal,
+          from: prevVal,
+          to: value
+        });
+      }
     }
 
     return { exprStr, value, steps };
@@ -180,20 +217,26 @@
   // ---- sample task preview ----
   function updateSampleTask() {
     if (!sampleTaskExpr) return;
-    const minVal = parseInt(minValInput.value, 10);
     const maxVal = parseInt(maxValInput.value, 10);
+    const minRes = parseInt(minResInput.value, 10);
+    const maxRes = parseInt(maxResInput.value, 10);
     const minTerms = parseInt(minTermsInput.value, 10);
     const maxTerms = parseInt(maxTermsInput.value, 10);
 
-    if (isNaN(minVal) || isNaN(maxVal) || minVal >= maxVal ||
+    if (isNaN(maxVal) || maxVal < 1 ||
+        isNaN(minRes) || isNaN(maxRes) || minRes >= maxRes ||
+        minRes > 0 || maxRes < 0 || (maxRes - minRes) < maxVal ||
         isNaN(minTerms) || minTerms < 2 ||
         isNaN(maxTerms) || minTerms > maxTerms) {
       sampleTaskExpr.textContent = "—";
       return;
     }
 
-    const prob = generateProblem(minVal, maxVal, minTerms, maxTerms);
+    const prob = generateProblem(maxVal, minRes, maxRes, minTerms, maxTerms);
     sampleTaskExpr.textContent = prob.exprStr + " = ?";
+    if (setupError) {
+      setupError.textContent = "";
+    }
   }
 
   // ---- hint & number line rendering ----
@@ -349,7 +392,7 @@
 
   // ---- problem generation & display ----
   function showNextProblem() {
-    const prob = generateProblem(sessionMinVal, sessionMaxVal, sessionMinTerms, sessionMaxTerms);
+    const prob = generateProblem(sessionMaxVal, sessionMinRes, sessionMaxRes, sessionMinTerms, sessionMaxTerms);
     currentExpression = prob.exprStr;
     currentAnswer = prob.value;
     currentSteps = prob.steps;
@@ -414,8 +457,9 @@
 
   function readSetupCriteria() {
     const totalCount = parseInt(totalCountInput.value, 10);
-    const minVal = parseInt(minValInput.value, 10);
     const maxVal = parseInt(maxValInput.value, 10);
+    const minRes = parseInt(minResInput.value, 10);
+    const maxRes = parseInt(maxResInput.value, 10);
     const minTerms = parseInt(minTermsInput.value, 10);
     const maxTerms = parseInt(maxTermsInput.value, 10);
     const secret = secretWordInput.value.trim();
@@ -426,23 +470,29 @@
       setupError.textContent = t("errTotalCount");
       return null;
     }
-    if (minVal >= maxVal) {
-      setupError.textContent = t("errMinMax");
+    if (isNaN(maxVal) || maxVal < 1) {
+      setupError.textContent = t("errMaxVal");
       return null;
     }
-    if (minTerms < 2) {
+    if (isNaN(minRes) || isNaN(maxRes) || minRes >= maxRes || minRes > 0 || maxRes < 0 || (maxRes - minRes) < maxVal) {
+      setupError.textContent = t("errInvalidResultRange");
+      return null;
+    }
+    if (isNaN(minTerms) || minTerms < 2) {
       setupError.textContent = t("errMinTerms");
       return null;
     }
-    if (minTerms > maxTerms) {
+    if (isNaN(maxTerms) || minTerms > maxTerms) {
       setupError.textContent = t("errTermsOrder");
       return null;
     }
 
     return {
+      lesson: 1,
       c: totalCount,
-      min: minVal,
       max: maxVal,
+      minR: minRes,
+      maxR: maxRes,
       minT: minTerms,
       maxT: maxTerms,
       s: secret,
@@ -450,11 +500,12 @@
     };
   }
 
-  function startQuiz(totalCount, minVal, maxVal, minTerms, maxTerms, secret) {
+  function startQuiz(totalCount, maxVal, minRes, maxRes, minTerms, maxTerms, secret) {
     totalProblems = totalCount;
     currentProblem = 0;
-    sessionMinVal = minVal;
     sessionMaxVal = maxVal;
+    sessionMinRes = minRes;
+    sessionMaxRes = maxRes;
     sessionMinTerms = minTerms;
     sessionMaxTerms = maxTerms;
     currentSecretWord = secret || "";
@@ -468,7 +519,7 @@
     const criteria = readSetupCriteria();
     if (!criteria) return;
     linkContainer.classList.add("hidden");
-    startQuiz(criteria.c, criteria.min, criteria.max, criteria.minT, criteria.maxT, criteria.s);
+    startQuiz(criteria.c, criteria.max, criteria.minR, criteria.maxR, criteria.minT, criteria.maxT, criteria.s);
   });
 
   genLinkBtn.addEventListener("click", function () {
@@ -599,34 +650,47 @@
       if (!token) return;
 
       const data = decryptParams(token);
-      if (!data || typeof data.c !== "number" || typeof data.min !== "number" || typeof data.max !== "number" || typeof data.minT !== "number" || typeof data.maxT !== "number") {
+      if (!data || typeof data.c !== "number") {
         setupError.textContent = t("errInvalidLink");
         return;
       }
+
+      const maxVal = typeof data.max === "number" ? data.max : 10;
+      const minRes = typeof data.minR === "number" ? data.minR : (typeof data.min === "number" ? data.min : -10);
+      const maxRes = typeof data.maxR === "number" ? data.maxR : (typeof data.max === "number" ? data.max : 10);
+      const minTerms = typeof data.minT === "number" ? data.minT : 2;
+      const maxTerms = typeof data.maxT === "number" ? data.maxT : 3;
 
       if (data.l && (data.l === "cs" || data.l === "en")) {
         setLanguage(data.l);
       }
 
       totalCountInput.value = data.c;
-      minValInput.value = data.min;
-      maxValInput.value = data.max;
-      minTermsInput.value = data.minT;
-      maxTermsInput.value = data.maxT;
+      maxValInput.value = maxVal;
+      minResInput.value = minRes;
+      maxResInput.value = maxRes;
+      minTermsInput.value = minTerms;
+      maxTermsInput.value = maxTerms;
       if (data.s !== undefined) {
         secretWordInput.value = data.s;
       }
       updateSampleTask();
 
-      startQuiz(data.c, data.min, data.max, data.minT, data.maxT, data.s || "");
+      startQuiz(data.c, maxVal, minRes, maxRes, minTerms, maxTerms, data.s || "");
     } catch (e) {
       console.error("Error reading URL parameters:", e);
     }
   }
 
   // Sample task input listeners (only inputs impacting the task)
-  [minValInput, maxValInput, minTermsInput, maxTermsInput].forEach(function (input) {
+  [maxValInput, minResInput, maxResInput, minTermsInput, maxTermsInput].forEach(function (input) {
     input.addEventListener("input", updateSampleTask);
+  });
+  totalCountInput.addEventListener("input", function () {
+    const val = parseInt(totalCountInput.value, 10);
+    if (!isNaN(val) && val >= 1 && setupError && setupError.textContent === t("errTotalCount")) {
+      setupError.textContent = "";
+    }
   });
   if (sampleRefreshBtn) {
     sampleRefreshBtn.addEventListener("click", updateSampleTask);

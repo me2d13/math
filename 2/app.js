@@ -174,6 +174,9 @@
 
     const prob = generateProblem(max1, max2);
     sampleTaskExpr.textContent = prob.exprStr + " = ?";
+    if (setupError) {
+      setupError.textContent = "";
+    }
   }
 
   // ---- screen navigation ----
@@ -314,6 +317,12 @@
   // Sample task input listeners (only inputs impacting the task)
   [maxVal1Input, maxVal2Input].forEach(function (input) {
     input.addEventListener("input", updateSampleTask);
+  });
+  totalCountInput.addEventListener("input", function () {
+    const val = parseInt(totalCountInput.value, 10);
+    if (!isNaN(val) && val >= 1 && setupError && setupError.textContent === t("errTotalCount")) {
+      setupError.textContent = "";
+    }
   });
   if (sampleRefreshBtn) {
     sampleRefreshBtn.addEventListener("click", updateSampleTask);
