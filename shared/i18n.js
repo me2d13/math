@@ -56,7 +56,24 @@ const I18N = {
     maxVal2Label: "Maximální hodnota 2. činitele:",
     errMaxVal1: "Maximální hodnota 1. činitele musí být alespoň 0.",
     errMaxVal2: "Maximální hodnota 2. činitele musí být alespoň 0.",
-    tableTitle: "Násobilka čísla {n}"
+    tableTitle: "Násobilka čísla {n}",
+
+    // Lesson 3 strings
+    lesson3Info: "Lekce: sčítání a odčítání výrazů s proměnnou (např. 3 + 4x - 2 - 6x)",
+    minConstTermsLabel: "Minimální počet číselných členů:",
+    maxConstTermsLabel: "Maximální počet číselných členů:",
+    minVarTermsLabel: "Minimální počet členů s proměnnou:",
+    maxVarTermsLabel: "Maximální počet členů s proměnnou:",
+    numberLineConstTitle: "Čísla",
+    numberLineVarTitle: "Členy s proměnnou (x)",
+    errMinConstTerms: "Minimální počet číselných členů musí být alespoň 0.",
+    errConstTermsOrder: "Minimální počet číselných členů musí být ≤ maximální počet.",
+    errMinVarTerms: "Minimální počet členů s proměnnou musí být alespoň 0.",
+    errVarTermsOrder: "Minimální počet členů s proměnnou musí být ≤ maximální počet.",
+    errTotalTermsZero: "Celkový počet členů musí být alespoň 1.",
+    errInvalidExpression: "Zadejte platný výraz (např. 5x + 7 nebo -4 + x).",
+    errNotSimplified: "Výraz není plně zjednodušený (sečtěte stejné členy).",
+    answerPlaceholderVar: "Tvůj výsledek (např. 5x+7)"
   },
   en: {
     pageTitle: "Math Practice",
@@ -113,6 +130,23 @@ const I18N = {
     maxVal2Label: "Maximum value of 2nd factor:",
     errMaxVal1: "Maximum value of 1st factor must be at least 0.",
     errMaxVal2: "Maximum value of 2nd factor must be at least 0.",
-    tableTitle: "Multiplication table for {n}"
+    tableTitle: "Multiplication table for {n}",
+
+    // Lesson 3 strings
+    lesson3Info: "Lesson: adding and subtracting expressions with variables (e.g. 3 + 4x - 2 - 6x)",
+    minConstTermsLabel: "Min number of constant terms:",
+    maxConstTermsLabel: "Max number of constant terms:",
+    minVarTermsLabel: "Min number of variable terms:",
+    maxVarTermsLabel: "Max number of variable terms:",
+    numberLineConstTitle: "Numbers",
+    numberLineVarTitle: "Variable terms (x)",
+    errMinConstTerms: "Minimum number of constant terms must be at least 0.",
+    errConstTermsOrder: "Min constant terms must be ≤ max terms.",
+    errMinVarTerms: "Minimum number of variable terms must be at least 0.",
+    errVarTermsOrder: "Min variable terms must be ≤ max terms.",
+    errTotalTermsZero: "Total number of terms must be at least 1.",
+    errInvalidExpression: "Please enter a valid expression (e.g. 5x + 7 or -4 + x).",
+    errNotSimplified: "Expression is not fully simplified (combine like terms).",
+    answerPlaceholderVar: "Your answer (e.g. 5x+7)"
   }
 };

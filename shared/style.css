@@ -660,3 +660,55 @@ button:active {
 #numpad .numpad-next:hover {
   background: #38a169;
 }
+
+/* 4-column numpad for expressions with variables */
+#numpad.numpad-4col {
+  grid-template-columns: repeat(4, 1fr);
+  max-width: 340px;
+}
+
+#numpad.numpad-4col .numpad-next {
+  grid-column: span 1;
+}
+
+#numpad .np.np-op {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+  color: #1e3a8a;
+  font-size: 1.35rem;
+}
+
+#numpad .np.np-op:hover {
+  background: #e2e8f0;
+}
+
+#numpad .np.np-var {
+  background: #f0fdf4;
+  border-color: #86efac;
+  color: #15803d;
+  font-style: italic;
+  font-weight: 700;
+  font-size: 1.35rem;
+}
+
+#numpad .np.np-var:hover {
+  background: #dcfce7;
+}
+
+/* Dual number line hint styles */
+.number-line-section {
+  margin-bottom: 0.75rem;
+}
+
+.number-line-section:last-child {
+  margin-bottom: 0;
+}
+
+.number-line-header {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #475569;
+  text-align: left;
+  padding-left: 0.5rem;
+  margin-bottom: 0.2rem;
+}

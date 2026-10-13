@@ -117,9 +117,20 @@
       color: #2d3748;
       margin-bottom: 0.25rem;
     }
+    .lesson-example {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #2b6cb0;
+      margin-bottom: 0.35rem;
+      letter-spacing: 0.01em;
+    }
+    .lesson-card.upcoming .lesson-example {
+      color: #718096;
+    }
     .lesson-desc {
       font-size: 0.9rem;
       color: #4a5568;
+      line-height: 1.4;
     }
     .footer {
       font-size: 0.85rem;
@@ -143,18 +154,28 @@
       <a href="1/" class="lesson-card">
         <span class="lesson-badge">Lekce 1 / Lesson 1</span>
         <div class="lesson-title">Sčítání a odčítání / Addition &amp; Subtraction</div>
-        <div class="lesson-desc">Procvičování celých čísel kolem nuly (např. 3 + 4, -5 + 1 - 10) s vizuální číselnou osou a tajenkou.</div>
+        <div class="lesson-example">3 + 4, -5 + 1 - 10</div>
+        <div class="lesson-desc">Procvičování celých čísel kolem nuly s vizuální číselnou osou a tajenkou.</div>
       </a>
 
       <a href="2/" class="lesson-card">
         <span class="lesson-badge">Lekce 2 / Lesson 2</span>
         <div class="lesson-title">Malá násobilka / Multiplication</div>
-        <div class="lesson-desc">Procvičování násobení malých čísel (např. 3 · 5, 2 · 0, 8 · 2) s nastavitelnými limity činitelů a tajenkou.</div>
+        <div class="lesson-example">3 · 5, 2 · 0, 8 · 2</div>
+        <div class="lesson-desc">Procvičování násobení malých čísel s nastavitelnými limity činitelů a tajenkou.</div>
+      </a>
+
+      <a href="3/" class="lesson-card">
+        <span class="lesson-badge">Lekce 3 / Lesson 3</span>
+        <div class="lesson-title">Výrazy s proměnnou / Expressions with Variable</div>
+        <div class="lesson-example">3 + 4x - 2 - 6x</div>
+        <div class="lesson-desc">Sčítání a odčítání výrazů s proměnnou x a číselnými členy se dvěma číselnými osami a tajenkou.</div>
       </a>
 
       <div class="lesson-card upcoming">
         <span class="lesson-badge">Připravujeme / Coming Soon</span>
         <div class="lesson-title">Dělení celých čísel / Division</div>
+        <div class="lesson-example">12 : 3, 17 : 5</div>
         <div class="lesson-desc">Dělení se zbytkem i beze zbytku.</div>
       </div>
     </div>

@@ -149,6 +149,7 @@
   // ---- numpad & keyboard input ----
   function setupNumpad(numpadEl, answerInputEl, onNext) {
     if (!numpadEl || !answerInputEl) return;
+    const isExpr = numpadEl.classList.contains("numpad-4col");
 
     numpadEl.addEventListener("click", function (e) {
       const btn = e.target.closest(".np");
@@ -161,12 +162,23 @@
         answerInputEl.value = "";
         focusAnswer(answerInputEl);
       } else if (action === "minus") {
-        const cur = answerInputEl.value;
-        if (cur.charAt(0) === "-") {
-          answerInputEl.value = cur.slice(1);
+        if (isExpr) {
+          answerInputEl.value += "-";
         } else {
-          answerInputEl.value = "-" + cur;
+          const cur = answerInputEl.value;
+          if (cur.charAt(0) === "-") {
+            answerInputEl.value = cur.slice(1);
+          } else {
+            answerInputEl.value = "-" + cur;
+          }
         }
+        focusAnswer(answerInputEl);
+      } else if (action === "plus") {
+        answerInputEl.value += "+";
+        focusAnswer(answerInputEl);
+      } else if (action === "var") {
+        const varChar = btn.getAttribute("data-var") || "x";
+        answerInputEl.value += varChar;
         focusAnswer(answerInputEl);
       } else if (action === "back") {
         const v = answerInputEl.value;
@@ -204,6 +216,22 @@
       const isNeg = allowNegative && val.startsWith("-");
       const digits = val.replace(/[^0-9]/g, "");
       answerInputEl.value = isNeg ? "-" + digits : digits;
+    });
+  }
+
+  function setupExpressionKeyboardInput(answerInputEl, onEnter) {
+    if (!answerInputEl) return;
+
+    answerInputEl.addEventListener("keydown", function (e) {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        if (typeof onEnter === "function") onEnter();
+      }
+    });
+
+    answerInputEl.addEventListener("input", function () {
+      const val = answerInputEl.value;
+      answerInputEl.value = val.replace(/[^0-9+\-xX\s]/g, "");
     });
   }
 
@@ -259,6 +287,7 @@
     focusAnswer: focusAnswer,
     setupNumpad: setupNumpad,
     setupKeyboardInput: setupKeyboardInput,
+    setupExpressionKeyboardInput: setupExpressionKeyboardInput,
     setupCopyButton: setupCopyButton,
     randInt: randInt
   };

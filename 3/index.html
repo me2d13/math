@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Procvičování matematiky</title>
+  <link rel="stylesheet" href="../shared/style.css">
+</head>
+<body>
+  <div class="container">
+    <div class="top-bar">
+      <div class="top-bar-left">
+        <a href="../" class="nav-home-link" data-i18n="allLessons">← Všechny lekce</a>
+      </div>
+      <div class="top-bar-right">
+        <div class="lang-switcher">
+          <button type="button" class="lang-btn active" data-lang="cs" title="Čeština">🇨🇿 CZ</button>
+          <button type="button" class="lang-btn" data-lang="en" title="English">🇬🇧 EN</button>
+        </div>
+      </div>
+    </div>
+
+    <h1 data-i18n="appTitle">Procvičování matematiky</h1>
+
+    <!-- SETUP SCREEN -->
+    <div id="setup-screen">
+      <div class="lesson-info" data-i18n="lesson3Info">Lekce: sčítání a odčítání výrazů s proměnnou (např. 3 + 4x - 2 - 6x)</div>
+      <p data-i18n="setupPrompt">Nastavte si parametry cvičení:</p>
+
+      <div class="form-group">
+        <label for="total-count" data-i18n="totalCountLabel">Počet příkladů:</label>
+        <input type="number" id="total-count" min="1" value="10">
+      </div>
+
+      <div class="form-group">
+        <label for="max-val" data-i18n="maxValLabel">Maximální hodnota členu:</label>
+        <input type="number" id="max-val" min="1" value="10">
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="min-res" data-i18n="minResLabel">Minimální výsledek:</label>
+          <input type="number" id="min-res" value="-20">
+        </div>
+        <div class="form-group">
+          <label for="max-res" data-i18n="maxResLabel">Maximální výsledek:</label>
+          <input type="number" id="max-res" value="20">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="min-const-terms" data-i18n="minConstTermsLabel">Minimální počet číselných členů:</label>
+          <input type="number" id="min-const-terms" min="0" value="2">
+        </div>
+        <div class="form-group">
+          <label for="max-const-terms" data-i18n="maxConstTermsLabel">Maximální počet číselných členů:</label>
+          <input type="number" id="max-const-terms" min="0" value="3">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="min-var-terms" data-i18n="minVarTermsLabel">Minimální počet členů s proměnnou:</label>
+          <input type="number" id="min-var-terms" min="0" value="2">
+        </div>
+        <div class="form-group">
+          <label for="max-var-terms" data-i18n="maxVarTermsLabel">Maximální počet členů s proměnnou:</label>
+          <input type="number" id="max-var-terms" min="0" value="2">
+        </div>
+      </div>
+
+      <div class="sample-task-row">
+        <div class="sample-task-left">
+          <span class="sample-task-label" data-i18n="sampleTaskLabel">Ukázka příkladu:</span>
+          <span class="sample-task-expr" id="sample-task-expr">—</span>
+        </div>
+        <button type="button" class="sample-refresh-btn" id="sample-refresh-btn" data-i18n-title="refreshSampleTitle" title="Vygenerovat jinou ukázku">
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-7.068 2H.534a.25.25 0 0 1-.192-.41l1.966-2.36a.25.25 0 0 1 .384 0l1.966 2.36a.25.25 0 0 1-.192.41z"/><path fill-rule="evenodd" d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 4.9 4c1.552 0 2.94-.707 3.857-1.818a.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z"/></svg>
+        </button>
+      </div>
+
+      <div class="form-group">
+        <label for="secret-word" data-i18n="secretWordLabel">Tajenka (volitelné):</label>
+        <input type="text" id="secret-word" data-i18n-placeholder="secretWordPlaceholder" placeholder="např. Dinosaurus, Poklad...">
+      </div>
+
+      <div class="setup-btn-row">
+        <button type="button" id="start-btn" data-i18n="startBtn">Spustit</button>
+        <button type="button" id="gen-link-btn" data-i18n="genLinkBtn">Vygenerovat odkaz</button>
+      </div>
+
+      <div id="link-container" class="link-container hidden">
+        <p class="link-label" data-i18n="linkLabel">Sdílejte tento odkaz se studentem:</p>
+        <div class="link-box">
+          <input type="text" id="share-link-input" readonly>
+          <button type="button" id="copy-link-btn" data-i18n="copyBtn">Kopírovat</button>
+        </div>
+      </div>
+
+      <div id="setup-error" class="error"></div>
+    </div>
+
+    <!-- PRACTICE SCREEN -->
+    <div id="practice-screen" class="hidden">
+      <div class="progress">
+        <span id="progress-text">0 / 10</span>
+      </div>
+      <div id="problem-display" class="problem"></div>
+
+      <div class="hint-container">
+        <button type="button" id="hint-btn" class="hint-btn" data-i18n="hintBtn">Nápověda</button>
+      </div>
+
+      <div id="hint-box" class="hint-box hidden">
+        <div id="number-lines-container">
+          <div id="const-line-section" class="number-line-section">
+            <div class="number-line-header" data-i18n="numberLineConstTitle">Čísla</div>
+            <div id="const-line-svg"></div>
+          </div>
+          <div id="var-line-section" class="number-line-section">
+            <div class="number-line-header" data-i18n="numberLineVarTitle">Členy s proměnnou (x)</div>
+            <div id="var-line-svg"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="input-area">
+        <input type="text" id="answer-input" data-i18n-placeholder="answerPlaceholderVar" placeholder="Tvůj výsledek (např. 5x+7)" autocomplete="off" inputmode="none" virtualkeyboardpolicy="manual">
+      </div>
+
+      <div id="numpad" class="numpad-4col">
+        <button type="button" class="np" data-value="1">1</button>
+        <button type="button" class="np" data-value="2">2</button>
+        <button type="button" class="np" data-value="3">3</button>
+        <button type="button" class="np np-op" data-action="plus">+</button>
+
+        <button type="button" class="np" data-value="4">4</button>
+        <button type="button" class="np" data-value="5">5</button>
+        <button type="button" class="np" data-value="6">6</button>
+        <button type="button" class="np np-op" data-action="minus">−</button>
+
+        <button type="button" class="np" data-value="7">7</button>
+        <button type="button" class="np" data-value="8">8</button>
+        <button type="button" class="np" data-value="9">9</button>
+        <button type="button" class="np np-var" data-action="var" data-var="x">x</button>
+
+        <button type="button" class="np" data-action="clear">C</button>
+        <button type="button" class="np" data-value="0">0</button>
+        <button type="button" class="np" data-action="back">←</button>
+        <button type="button" id="next-btn" class="np numpad-next" data-i18n="nextBtn">Další</button>
+      </div>
+
+      <div id="feedback" class="feedback"></div>
+    </div>
+
+    <!-- CONGRATULATIONS SCREEN -->
+    <div id="congrats-screen" class="hidden">
+      <h2 data-i18n="congratsTitle">🎉 Gratulujeme! 🎉</h2>
+      <p data-i18n="congratsMsg">Úspěšně jsi dokončil všechny příklady!</p>
+      <div id="secret-reveal" class="secret-reveal hidden">
+        <p class="secret-heading" data-i18n="secretRevealHeading">Právě jsi odhalil tajenku:</p>
+        <div id="secret-word-display" class="secret-word-display"></div>
+      </div>
+      <p class="congrats-instruction" data-i18n="congratsInstruction">Nyní můžeš stránku zavřít, nebo kliknout na tlačítko níže a začít znovu.</p>
+      <button id="restart-btn" data-i18n="restartBtn">Začít znovu</button>
+    </div>
+  </div>
+
+  <script src="../shared/i18n.js"></script>
+  <script src="../shared/common.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

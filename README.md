@@ -1,5 +1,7 @@
 # 🧮 Math Practice / Procvičování matematiky
 
+🌐 **Live App / Spustit online:** **https://me2d13.github.io/math/**
+
 [English](#english) | [Čeština](#čeština)
 
 ---
@@ -29,13 +31,19 @@ A lightweight, distraction-free web application designed to help children and st
    - Secret word challenge and encrypted shareable link.
    - On-screen telephone numpad & physical keyboard support (mobile onscreen keyboard suppressed on answer field).
 
+3. **[Lesson 3: Expressions with Variable](./3/)** (`./3/`)
+   - Practice simplifying algebraic expressions with variable `x` and numerical constants (e.g. `3 + 4x - 2 - 6x`).
+   - Flexible answer parsing (commutative term order, optional explicit zeros, implicit coefficient `1`/`-1`, like-term simplification check).
+   - Configurable term count ranges separated for constant numbers and variable terms.
+   - Dual number line hint system (stacked vector arrows for constants and variable coefficients).
+   - Custom 4-column on-screen keypad including `+` and `x`.
+   - Secret word challenge and encrypted shareable link.
+   - Czech and English interface.
+
 *More lessons (division, fractions, equations) are planned for future updates!*
 
 ### 🌐 Live Demo
-The application is hosted via GitHub Pages:
-- **Portal:** **https://me2d13.github.io/math/**
-- **Lesson 1:** **https://me2d13.github.io/math/1/**
-- **Lesson 2:** **https://me2d13.github.io/math/2/**
+The application is hosted via GitHub Pages: **https://me2d13.github.io/math/**
 
 ---
 
@@ -64,10 +72,16 @@ Jednoduchá a přehledná webová aplikace pro procvičování základních mate
    - Kvíz s tajenkou a generování šifrovaného odkazu.
    - Telefonní klávesnice i běžná klávesnice (systémová klávesnice na mobilu nepotlačuje rozhraní lekce).
 
+3. **[Lekce 3: Výrazy s proměnnou](./3/)** (`./3/`)
+   - Procvičování sčítání a odčítání výrazů s proměnnou `x` a číselnými členy (např. `3 + 4x - 2 - 6x`).
+   - Flexibilní parsování výsledku (libovolné pořadí členů, volitelná nula, koeficient `1` i `-1`, kontrola sloučení stejných členů).
+   - Odděleně nastavitelný počet členů pro čísla a pro proměnnou x.
+   - Dvojitá číselná osa pro nápovědu (šipky zvlášť pro čísla a zvlášť pro členy s x).
+   - Virtuální klávesnice ve 4 sloupcích s tlačítky `+` a `x` i plná podpora běžné klávesnice.
+   - Kvíz s tajenkou a šifrovaný odkaz.
+   - Čeština i angličtina.
+
 *Další lekce (dělení, zlomky, rovnice) budou následovat v dalších verzích!*
 
 ### 🌐 Spuštění online
-Aplikace je dostupná přes GitHub Pages:
-- **Portál:** **https://me2d13.github.io/math/**
-- **Lekce 1:** **https://me2d13.github.io/math/1/**
-- **Lekce 2:** **https://me2d13.github.io/math/2/**
+Aplikace je dostupná přes GitHub Pages: **https://me2d13.github.io/math/**
