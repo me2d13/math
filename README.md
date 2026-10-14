@@ -40,7 +40,15 @@ A lightweight, distraction-free web application designed to help children and st
    - Secret word challenge and encrypted shareable link.
    - Czech and English interface.
 
-*More lessons (division, fractions, equations) are planned for future updates!*
+4. **[Lesson 4: Linear Equations](./4/)** (`./4/`)
+   - Practice solving linear equations with variable `x` and numerical constants on both sides (e.g. `2x + 3 = x + 7`).
+   - Terms generated randomly across left and right sides of the equation.
+   - Guaranteed non-fractional integer solutions (tuned via the last non-variable term).
+   - Live sample equation preview and configurable term count ranges.
+   - Secret word challenge and encrypted shareable link.
+   - Czech and English interface.
+
+*More lessons (division, fractions) are planned for future updates!*
 
 ### 🌐 Live Demo
 The application is hosted via GitHub Pages: **https://me2d13.github.io/math/**
@@ -81,7 +89,15 @@ Jednoduchá a přehledná webová aplikace pro procvičování základních mate
    - Kvíz s tajenkou a šifrovaný odkaz.
    - Čeština i angličtina.
 
-*Další lekce (dělení, zlomky, rovnice) budou následovat v dalších verzích!*
+4. **[Lekce 4: Lineární rovnice](./4/)** (`./4/`)
+   - Procvičování řešení lineárních rovnic s proměnnou `x` a číselnými členy na obou stranách (např. `2x + 3 = x + 7`).
+   - Členy jsou náhodně rozdělovány na levou a pravou stranu rovnice.
+   - Zaručená celočíselná řešení bez zlomků (dolaďováním posledního číselného členu).
+   - Živá ukázka rovnice s možností přegenerování a nastavitelnými rozsahy.
+   - Kvíz s tajenkou a šifrovaný odkaz.
+   - Čeština i angličtina.
+
+*Další lekce (dělení, zlomky) budou následovat v dalších verzích!*
 
 ### 🌐 Spuštění online
 Aplikace je dostupná přes GitHub Pages: **https://me2d13.github.io/math/**
